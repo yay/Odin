@@ -18,7 +18,7 @@ MAX_DURATION :: Duration(1<<63 - 1)
 IS_SUPPORTED :: _IS_SUPPORTED
 
 Time :: struct {
-	_nsec: i64, // Measured in UNIX nanonseconds
+	_nsec: i64, // Unix epoch, measured in nanonseconds
 }
 
 Month :: enum int {
@@ -244,7 +244,7 @@ time_add :: proc "contextless" (t: Time, d: Duration) -> Time {
 // On Windows it depends but is comparable with regular sleep in the worst case.
 // To get the same kind of accuracy as on Linux, have your program call `windows.timeBeginPeriod(1)` to
 // tell Windows to use a more accurate timer for your process.
-// Additionally your program should call `windows.timeEndPeriod(1)` once you're done with `accurate_sleep`. 
+// Additionally your program should call `windows.timeEndPeriod(1)` once you're done with `accurate_sleep`.
 accurate_sleep :: proc "contextless" (d: Duration) {
 	to_sleep, estimate, mean, m2, count: Duration
 
